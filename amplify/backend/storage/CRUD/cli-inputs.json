@@ -1,0 +1,14 @@
+{
+  "resourceName": "CRUD",
+  "policyUUID": "144bde4a",
+  "bucketName": "amplifyfullstack79653ea60d5147a5990f6f92b2e53fc",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

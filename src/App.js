@@ -12,12 +12,12 @@ import {
   TextField,
   View,
   withAuthenticator,
-  Image,
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries.js";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
+  updateNote as updateNoteMutation,
 } from "./graphql/mutations.js";
 
 Amplify.configure(awsconfig);
@@ -25,6 +25,7 @@ const client = generateClient();
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
+  const [selectedNote, setSelectedNote] = useState(null);
 
   useEffect(() => {
     fetchNotes();
@@ -51,6 +52,23 @@ const App = ({ signOut }) => {
     event.target.reset();
   }
 
+  async function updateNote(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const data = {
+      id: selectedNote.id,
+      name: form.get("name"),
+      description: form.get("description"),
+    };
+    await client.graphql({
+      query: updateNoteMutation,
+      variables: { input: data },
+    });
+    fetchNotes();
+    event.target.reset();
+    setSelectedNote(null);
+  }
+
   async function deleteNote({ id }) {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
@@ -60,10 +78,14 @@ const App = ({ signOut }) => {
     });
   }
 
+  const handleUpdateNote = (note) => {
+    setSelectedNote(note);
+  };
+
   return (
     <View className="App">
       <Heading level={1}>Employees</Heading>
-      <View as="form" margin="3rem 0" onSubmit={createNote}>
+      <View as="form" margin="3rem 0" onSubmit={selectedNote ? updateNote : createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
             name="name"
@@ -72,6 +94,7 @@ const App = ({ signOut }) => {
             labelHidden
             variation="quiet"
             required
+            defaultValue={selectedNote ? selectedNote.name : ""}
           />
           <TextField
             name="description"
@@ -80,9 +103,10 @@ const App = ({ signOut }) => {
             labelHidden
             variation="quiet"
             required
+            defaultValue={selectedNote ? selectedNote.description : ""}
           />
           <Button type="submit" variation="primary">
-            Create Employee
+            {selectedNote ? "Update Employee" : "Create Employee"}
           </Button>
         </Flex>
       </View>
@@ -101,6 +125,9 @@ const App = ({ signOut }) => {
             <Text as="span">{note.description}</Text>
             <Button variation="link" onClick={() => deleteNote(note)}>
               Delete Employee
+            </Button>
+            <Button variation="link" onClick={() => handleUpdateNote(note)}>
+              Update Employee
             </Button>
           </Flex>
         ))}

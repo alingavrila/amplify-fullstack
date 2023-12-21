@@ -17,6 +17,9 @@
       },
       "auth": {
         "amplifyfullstack612e8335": {}
+      },
+      "storage": {
+        "CRUD": {}
       }
     }
   }

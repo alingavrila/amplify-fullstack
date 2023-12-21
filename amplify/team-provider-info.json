@@ -12,8 +12,11 @@
       "AmplifyAppId": "d1218xqxrp9dol"
     },
     "categories": {
+      "api": {
+        "amplifyfullstack": {}
+      },
       "auth": {
-        "amplifyfullstackbf6de861": {}
+        "amplifyfullstack612e8335": {}
       }
     }
   }

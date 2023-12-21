@@ -62,7 +62,7 @@ const App = ({ signOut }) => {
 
   return (
     <View className="App">
-      <Heading level={1}>My Notes App</Heading>
+      <Heading level={1}>Employees</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
@@ -82,11 +82,11 @@ const App = ({ signOut }) => {
             required
           />
           <Button type="submit" variation="primary">
-            Create Note
+            Create Employee
           </Button>
         </Flex>
       </View>
-      <Heading level={2}>Current Notes</Heading>
+      <Heading level={2}>Current Employees</Heading>
       <View margin="3rem 0">
         {notes.map((note) => (
           <Flex
@@ -100,7 +100,7 @@ const App = ({ signOut }) => {
             </Text>
             <Text as="span">{note.description}</Text>
             <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
+              Delete Employee
             </Button>
           </Flex>
         ))}

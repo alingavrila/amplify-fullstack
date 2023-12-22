@@ -110,7 +110,7 @@ const App = ({ signOut }) => {
           </Button>
         </Flex>
       </View>
-      <Heading level={2}>Current Employees</Heading>
+      <Heading level={2}>Employees List</Heading>
       <View margin="3rem 0">
         {notes.map((note) => (
           <Flex

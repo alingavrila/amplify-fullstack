@@ -98,8 +98,8 @@ const App = ({ signOut }) => {
           />
           <TextField
             name="description"
-            placeholder="Description"
-            label="Description"
+            placeholder="Job"
+            label="Job"
             labelHidden
             variation="quiet"
             required
